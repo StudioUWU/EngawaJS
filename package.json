@@ -3,7 +3,6 @@
   "displayName": "Engawa",
   "version": "2.0.0",
   "description": "EngawaUI events for EngawaRuntime.",
-  "private": true,
   "license": "MIT",
   "type": "module",
   "main": "./dist/engawa.cjs",

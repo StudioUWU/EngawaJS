@@ -11,7 +11,7 @@ npm install
 ## Install
 
 ```powershell
-npm add engawa
+npm add @studiouwu/engawa
 ```
 
 ## Vite usage
