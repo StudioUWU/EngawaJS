@@ -1,0 +1,73 @@
+{
+  "name": "engawa",
+  "displayName": "Engawa",
+  "version": "2.0.0",
+  "description": "EngawaUI events for EngawaRuntime.",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/engawa.cjs",
+  "module": "./dist/engawa.js",
+  "types": "./dist/index.d.ts",
+  "unpkg": "./dist/engawa.global.js",
+  "jsdelivr": "./dist/engawa.global.js",
+  "exports": {
+    ".": {
+      "browser": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/engawa.js"
+      },
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/engawa.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/engawa.cjs"
+      },
+      "default": "./dist/engawa.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": true,
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "packageManager": "npm@11.10.1",
+  "scripts": {
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "typecheck": "tsc -p tsconfig.json",
+    "build:types": "tsc -p tsconfig.build.json && node scripts/build-cjs-types.mjs",
+    "build:esm": "esbuild src/index.ts --bundle --format=esm --platform=browser --target=es2020 --minify --sourcemap --outfile=dist/engawa.js",
+    "build:cjs": "esbuild src/index.ts --bundle --format=cjs --platform=browser --target=es2020 --minify --sourcemap --outfile=dist/engawa.cjs",
+    "build:global": "esbuild src/global.ts --bundle --format=iife --platform=browser --target=es2020 --minify --sourcemap --outfile=dist/engawa.global.js",
+    "build:javascript": "npm run build:esm && npm run build:cjs && npm run build:global",
+    "build": "npm run clean && npm run typecheck && npm run build:types && npm run build:javascript",
+    "test:runtime": "node --test tests/runtime.test.mjs tests/commonjs.test.cjs",
+    "test:types": "tsc -p tsconfig.test.json && tsc -p tsconfig.test-cjs.json",
+    "test:vite": "node scripts/verify-vite.mjs",
+    "test:package": "publint",
+    "check": "npm run build && npm run test:runtime && npm run test:types && npm run test:vite && npm run test:package",
+    "test": "npm run check",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "engawa",
+    "engawaui",
+    "engawaruntime",
+    "unreal-engine",
+    "unity",
+    "vite",
+    "typescript"
+  ],
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "publint": "0.3.24",
+    "typescript": "5.9.3",
+    "vite": "8.2.2"
+  }
+}
